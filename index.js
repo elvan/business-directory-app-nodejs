@@ -2,7 +2,6 @@ const path = require('path');
 
 const express = require('express');
 const mongoose = require('mongoose');
-const faker = require('faker');
 
 const Company = require('./models/company');
 
@@ -26,17 +25,13 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
-  Company.find()
-    .limit(10)
-    .exec({}, (err, companies) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render('index', {
-          companies,
-        });
-      }
-    });
+  res.render('index');
+});
+
+app.get('/companies', async (req, res) => {
+  const companies = await Company.find().limit(10).exec();
+
+  res.render('companies/index', { companies });
 });
 
 app.listen(3000, () => {

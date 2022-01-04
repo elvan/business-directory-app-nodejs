@@ -7,6 +7,12 @@
     <title>Business Directory</title>
   </head>
   <body>
-    <h1>Business Directory</h1>
+    <h1>List of Companies</h1>
+    <!-- prettier-ignore -->
+    <ol>
+      <% for( let company of companies ) { %>
+        <li><%= company.name %></li>
+      <% } %>
+    </ol>
   </body>
 </html>
