@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const faker = require('faker');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
+const ejsMate = require('ejs-mate');
 
 const PORT = process.env.PORT || 3000;
 
@@ -31,6 +32,7 @@ app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 

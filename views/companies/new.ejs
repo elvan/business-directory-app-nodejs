@@ -1,113 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New Company</title>
-  </head>
-  <body>
-    <main>
-      <h1>New Company</h1>
-      <p>(this form is pre-populated with fake data)</p>
-      <form action="/companies" method="post">
-        <div>
-          <label for="name">Name</label>
-          <input
-            id="name"
-            name="company[name]"
-            type="text"
-            value="<%- company.name %>"
-            required
-          />
-        </div>
-        <div>
-          <label for="description">Description</label>
-          <input
-            id="description"
-            name="company[description]"
-            type="text"
-            value="<%- company.description %>"
-            required
-          />
-        </div>
-        <div>
-          <label for="category">Category</label>
-          <input
-            id="category"
-            name="company[category]"
-            type="text"
-            value="<%- company.category %>"
-            required
-          />
-        </div>
-        <div>
-          <label for="address">Address</label>
-          <input
-            id="address"
-            name="company[address]"
-            type="text"
-            value="<%- company.address %>"
-            required
-          />
-        </div>
-        <div>
-          <label for="city">City</label>
-          <input
-            id="city"
-            name="company[city]"
-            type="text"
-            value="<%- company.city %>"
-            required
-          />
-        </div>
-        <div>
-          <label for="state">State</label>
-          <input
-            id="state"
-            name="company[state]"
-            type="text"
-            value="<%- company.state %>"
-            required
-          />
-        </div>
-        <div>
-          <label for="zip">Zip Code</label>
-          <input
-            id="zip"
-            name="company[zip]"
-            type="text"
-            value="<%- company.zip %>"
-            required
-          />
-        </div>
-        <div>
-          <label for="phone">Phone</label>
-          <input
-            id="phone"
-            name="company[phone]"
-            type="tel"
-            value="<%- company.phone %>"
-            required
-          />
-        </div>
-        <div>
-          <label for="website">Website</label>
-          <input
-            id="website"
-            name="company[website]"
-            type="url"
-            value="<%- company.website %>"
-            required
-          />
-        </div>
-        <div>
-          <button type="submit">Add Company</button>
-        </div>
-      </form>
-    </main>
-    <footer>
-      <a href="/companies">Back to Companies</a>
-    </footer>
-  </body>
-</html>
+<% layout('layouts/boilerplate.ejs') %>
+<main>
+  <h1>New Company</h1>
+  <p>(this form is pre-populated with fake data)</p>
+  <form action="/companies" method="post">
+    <div>
+      <label for="name">Name</label>
+      <input
+        id="name"
+        name="company[name]"
+        type="text"
+        value="<%- company.name %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="description">Description</label>
+      <input
+        id="description"
+        name="company[description]"
+        type="text"
+        value="<%- company.description %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="category">Category</label>
+      <input
+        id="category"
+        name="company[category]"
+        type="text"
+        value="<%- company.category %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="address">Address</label>
+      <input
+        id="address"
+        name="company[address]"
+        type="text"
+        value="<%- company.address %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="city">City</label>
+      <input
+        id="city"
+        name="company[city]"
+        type="text"
+        value="<%- company.city %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="state">State</label>
+      <input
+        id="state"
+        name="company[state]"
+        type="text"
+        value="<%- company.state %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="zip">Zip Code</label>
+      <input
+        id="zip"
+        name="company[zip]"
+        type="text"
+        value="<%- company.zip %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="phone">Phone</label>
+      <input
+        id="phone"
+        name="company[phone]"
+        type="tel"
+        value="<%- company.phone %>"
+        required
+      />
+    </div>
+    <div>
+      <label for="website">Website</label>
+      <input
+        id="website"
+        name="company[website]"
+        type="url"
+        value="<%- company.website %>"
+        required
+      />
+    </div>
+    <div>
+      <button type="submit">Add Company</button>
+    </div>
+  </form>
+</main>
+<footer>
+  <a href="/companies">Back to Companies</a>
+</footer>
