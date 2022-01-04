@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const faker = require('faker');
 const methodOverride = require('method-override');
+const morgan = require('morgan');
 
 const Company = require('./models/company');
 
@@ -22,6 +23,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 });
+
+app.use(morgan('tiny'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
