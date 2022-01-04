@@ -13,6 +13,7 @@ const CompanySchema = new Schema({
   zip: String, // address.zipCode
   phone: String, // phone.phoneNumber
   website: String, // internet.url
+  image: String, // from Unsplash
   createdAt: Date,
   updatedAt: Date,
 });
