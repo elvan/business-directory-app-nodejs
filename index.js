@@ -57,10 +57,14 @@ app.get('/companies/new', (req, res) => {
 });
 
 app.post('/companies', async (req, res) => {
-  const company = new Company(req.body.company);
-  await company.save();
+  const postedCompany = req.body.company;
+  postedCompany.createdAt = new Date();
+  postedCompany.updatedAt = new Date();
 
-  res.redirect(`/companies/${company._id}`);
+  const newCompany = new Company(postedCompany);
+  await newCompany.save();
+
+  res.redirect(`/companies/${newCompany._id}`);
 });
 
 app.get('/companies/:id', async (req, res) => {
