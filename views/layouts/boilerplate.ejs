@@ -12,9 +12,13 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <!-- prettier-ignore -->
+  <body class="d-flex flex-column vh-100">
     <%- include('_navbar') %>
-    <main class="container"><%- body %></main>
+    <main class="container">
+      <%- body %>
+    </main>
+    <%- include('_footer') %>
     <%- include('_scripts') %>
   </body>
 </html>
