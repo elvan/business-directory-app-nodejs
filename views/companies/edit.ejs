@@ -4,13 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New Company</title>
+    <title>Edit Company - <%- company.name %></title>
   </head>
   <body>
     <main>
-      <h1>New Company</h1>
-      <p>(this form is pre-populated with fake data)</p>
-      <form action="/companies" method="post">
+      <h1>Edit Company - <%- company.name %></h1>
+      <form action="/companies/<%- company._id %>?_method=PATCH" method="post">
         <div>
           <label for="name">Name</label>
           <input
@@ -93,7 +92,7 @@
           />
         </div>
         <div>
-          <button type="submit">Add Company</button>
+          <button type="submit">Update Company</button>
         </div>
       </form>
     </main>

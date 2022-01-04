@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const faker = require('faker');
+const methodOverride = require('method-override');
 
 const Company = require('./models/company');
 
@@ -23,6 +24,7 @@ db.once('open', () => {
 });
 
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -67,6 +69,27 @@ app.get('/companies/:id', async (req, res) => {
   const company = await Company.findById(id);
 
   res.render('companies/show', { company });
+});
+
+app.get('/companies/:id/edit', async (req, res) => {
+  const id = req.params.id;
+
+  const company = await Company.findById(id);
+
+  res.render('companies/edit', { company });
+});
+
+app.patch('/companies/:id', async (req, res) => {
+  const id = req.params.id;
+
+  const editedCompany = req.body.company;
+  editedCompany.updatedAt = new Date();
+
+  const updatedCompany = await Company.findByIdAndUpdate(id, editedCompany, {
+    new: true,
+  });
+
+  res.redirect(`/companies/${updatedCompany._id}`);
 });
 
 app.listen(3000, () => {

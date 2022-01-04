@@ -17,7 +17,12 @@
       <p><%= company.zip %></p>
     </main>
     <footer>
-      <a href="/companies">List of Companies</a>
+      <p>
+        <a href="/companies/<%- company._id %>/edit">Edit</a>
+      </p>
+      <p>
+        <a href="/companies">Back to Companies</a>
+      </p>
     </footer>
   </body>
 </html>

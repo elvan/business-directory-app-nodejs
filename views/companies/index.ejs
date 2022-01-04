@@ -15,7 +15,9 @@
     <ul>
       <% for( let company of companies ) { %>
         <li>
-          <a href="/companies/<%- company._id %>"><%= company.name %></a>
+          <%= company.name %>
+          <a href="/companies/<%- company._id %>">Show</a>
+          <a href="/companies/<%- company._id %>/edit">Edit</a>
         </li>
       <% } %>
     </ul>
