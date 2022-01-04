@@ -1,0 +1,29 @@
+{
+  "name": "business-directory-app-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elvan/business-directory-app-nodejs.git"
+  },
+  "keywords": [],
+  "author": "Elvan Hidayat <elvanhd@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elvan/business-directory-app-nodejs/issues"
+  },
+  "homepage": "https://github.com/elvan/business-directory-app-nodejs#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
