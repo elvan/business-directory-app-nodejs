@@ -68,7 +68,7 @@ app.post('/companies', async (req, res) => {
 });
 
 app.get('/companies/:id', async (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   const company = await Company.findById(id);
 
@@ -76,7 +76,7 @@ app.get('/companies/:id', async (req, res) => {
 });
 
 app.get('/companies/:id/edit', async (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   const company = await Company.findById(id);
 
@@ -84,7 +84,7 @@ app.get('/companies/:id/edit', async (req, res) => {
 });
 
 app.patch('/companies/:id', async (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   const editedCompany = req.body.company;
   editedCompany.updatedAt = new Date();
@@ -94,6 +94,14 @@ app.patch('/companies/:id', async (req, res) => {
   });
 
   res.redirect(`/companies/${updatedCompany._id}`);
+});
+
+app.delete('/companies/:id', async (req, res) => {
+  const { id } = req.params;
+
+  await Company.findByIdAndDelete(id);
+
+  res.redirect('/companies');
 });
 
 app.listen(3000, () => {

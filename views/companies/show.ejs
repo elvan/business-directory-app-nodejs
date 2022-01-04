@@ -23,6 +23,11 @@
         <a href="/companies/<%- company._id %>/edit">Edit</a>
       </p>
       <p>
+        <form action="/companies/<%- company._id %>?_method=DELETE" method="post">
+          <button type="submit">Delete</button>
+        </form>
+      </p>
+      <p>
         <a href="/companies">Back to Companies</a>
       </p>
     </footer>
