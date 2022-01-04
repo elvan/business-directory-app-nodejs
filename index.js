@@ -26,27 +26,17 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
-  res.render('index');
-});
-
-app.get('/generate-company', async (req, res) => {
-  const company = new Company({
-    name: faker.company.companyName(),
-    description: faker.company.catchPhrase(),
-    category: faker.commerce.department(),
-    address: faker.address.streetAddress(),
-    city: faker.address.city(),
-    state: faker.address.state(),
-    zip: faker.address.zipCodeByState(),
-    phone: faker.phone.phoneNumber(),
-    website: faker.internet.url(),
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
-
-  // await company.save();
-
-  res.json(company);
+  Company.find()
+    .limit(10)
+    .exec({}, (err, companies) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('index', {
+          companies,
+        });
+      }
+    });
 });
 
 app.listen(3000, () => {

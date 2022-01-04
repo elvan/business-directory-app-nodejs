@@ -8,5 +8,10 @@
   </head>
   <body>
     <h1>Business Directory</h1>
+    <ol>
+      <% for( let company of companies ) { %>
+      <li><%= company.name %></li>
+      <% } %>
+    </ol>
   </body>
 </html>
