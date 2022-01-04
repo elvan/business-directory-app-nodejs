@@ -33,6 +33,7 @@
     "@types/method-override": "^0.0.32",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.3",
+    "@types/node": "^16.11.18",
     "nodemon": "^2.0.15"
   },
   "engines": {
