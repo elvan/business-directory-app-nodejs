@@ -7,12 +7,17 @@
     <title>Company - <%= company.name %></title>
   </head>
   <body>
-    <h1><%= company.name %></h1>
-    <h2><%= company.city %>, <%= company.state %></h2>
-    <p><%= company.description %></p>
-    <p><%= company.website %></p>
-    <p><%= company.phone %></p>
-    <p><%= company.address %></p>
-    <p><%= company.zip %></p>
+    <main>
+      <h1><%= company.name %></h1>
+      <h2><%= company.city %>, <%= company.state %></h2>
+      <p><%= company.description %></p>
+      <p><%= company.website %></p>
+      <p><%= company.phone %></p>
+      <p><%= company.address %></p>
+      <p><%= company.zip %></p>
+    </main>
+    <footer>
+      <a href="/companies">List of Companies</a>
+    </footer>
   </body>
 </html>

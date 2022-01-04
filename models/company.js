@@ -10,7 +10,7 @@ const CompanySchema = new Schema({
   address: String, // address.streetAddress
   city: String, // address.city
   state: String, // address.state
-  zip: String, // address.zipCodeByState
+  zip: String, // address.zipCode
   phone: String, // phone.phoneNumber
   website: String, // internet.url
   createdAt: Date,

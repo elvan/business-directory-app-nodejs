@@ -32,7 +32,7 @@ const seedData = async () => {
       address: faker.address.streetAddress(),
       city: faker.address.city(),
       state: faker.address.state(),
-      zip: faker.address.zipCodeByState(),
+      zip: faker.address.zipCode(),
       phone: faker.phone.phoneNumber(),
       website: faker.internet.url(),
       createdAt: new Date(),
