@@ -6,6 +6,8 @@ const faker = require('faker');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 
+const PORT = process.env.PORT || 3000;
+
 const Company = require('./models/company');
 
 const app = express();
@@ -107,6 +109,6 @@ app.delete('/companies/:id', async (req, res) => {
   res.redirect('/companies');
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
