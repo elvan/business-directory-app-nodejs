@@ -9,6 +9,7 @@ const ejsMate = require('ejs-mate');
 
 const PORT = process.env.PORT || 3000;
 
+const images = require('./seeds/images');
 const Company = require('./models/company');
 
 const app = express();
@@ -47,6 +48,8 @@ app.get('/companies', async (req, res) => {
 });
 
 app.get('/companies/new', (req, res) => {
+  const randomImage = images[Math.floor(Math.random() * images.length)];
+
   // pre-populate the form with fake data
   const company = new Company({
     name: faker.company.companyName(),
@@ -58,6 +61,7 @@ app.get('/companies/new', (req, res) => {
     zip: faker.address.zipCode(),
     phone: faker.phone.phoneNumber(),
     website: faker.internet.url(),
+    image: randomImage,
   });
 
   res.render('companies/new', { company });
