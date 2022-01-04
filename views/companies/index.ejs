@@ -4,12 +4,35 @@
   <a href="/companies/new">Add New Company</a>
 </div>
 <!-- prettier-ignore -->
-<ul>
+<div>
   <% for( let company of companies ) { %>
-    <li>
-      <%= company.name %>
-      <a href="/companies/<%- company._id %>">Show</a>
-      <a href="/companies/<%- company._id %>/edit">Edit</a>
-    </li>
+    <div class="card mb-3">
+      <div class="row">
+        <div class="col-md-5">
+          <img
+            src="<%- company.image %>"
+            alt="<%- company.name %> image"
+            class="img-fluid" />
+        </div>
+        <div class="col-md-7">
+          <div class="card-body">
+            <h5 class="card-title"><%- company.name %></h5>
+            <p class="card-text"><%- company.description %></p>
+            <p class="card-text">
+              <small class="text-muted">
+                <%- company.address %>, <%- company.city %>
+              </small>
+            </p>
+            <div>
+              <a
+                href="/companies/<%- company.id %>"
+                class="btn btn-primary">
+                View <%- company.name %>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   <% } %>
-</ul>
+</div>
