@@ -1,0 +1,16 @@
+<% layout('layouts/boilerplate.ejs') %>
+<div class="row">
+  <h1 class="text-center">New Business</h1>
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <p class="text-center text-muted">
+      (this form is pre-populated with fake data)
+    </p>
+    <form action="/biz" method="post">
+      <%- include('_form') %>
+      <div>
+        <button type="submit" class="btn btn-success">Save Business</button>
+        <a href="/biz" class="btn btn-link">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

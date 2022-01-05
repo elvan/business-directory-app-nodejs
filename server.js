@@ -10,12 +10,12 @@ const ejsMate = require('ejs-mate');
 const PORT = process.env.PORT || 3000;
 
 const images = require('./seeds/images');
-const Company = require('./models/company');
+const Business = require('./models/business');
 
 const app = express();
 const db = mongoose.connection;
 
-const mongodbUri = process.env.MONGODB_SERVER + 'business-directory-app-nodejs';
+const mongodbUri = `${process.env.MONGODB_SERVER}/business-directory-app-nodejs`;
 
 mongoose.connect(mongodbUri, {
   useCreateIndex: true,
@@ -41,17 +41,17 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/companies', async (req, res) => {
-  const companies = await Company.find().limit(10).exec();
+app.get('/biz', async (req, res) => {
+  const businesses = await Business.find().limit(10).exec();
 
-  res.render('companies/index', { companies });
+  res.render('business/index', { businesses: businesses });
 });
 
-app.get('/companies/new', (req, res) => {
+app.get('/biz-add', (req, res) => {
   const randomImage = images[Math.floor(Math.random() * images.length)];
 
   // pre-populate the form with fake data
-  const company = new Company({
+  const business = new Business({
     name: faker.company.companyName(),
     description: faker.company.catchPhrase(),
     category: faker.commerce.department(),
@@ -64,55 +64,55 @@ app.get('/companies/new', (req, res) => {
     image: randomImage,
   });
 
-  res.render('companies/new', { company });
+  res.render('business/add', { business: business });
 });
 
-app.post('/companies', async (req, res) => {
-  const postedCompany = req.body.company;
-  postedCompany.createdAt = new Date();
-  postedCompany.updatedAt = new Date();
+app.post('/biz', async (req, res) => {
+  const postedBusiness = req.body.business;
+  postedBusiness.createdAt = new Date();
+  postedBusiness.updatedAt = new Date();
 
-  const newCompany = new Company(postedCompany);
-  await newCompany.save();
+  const newBusiness = new Business(postedBusiness);
+  await newBusiness.save();
 
-  res.redirect(`/companies/${newCompany._id}`);
+  res.redirect(`/biz/${newBusiness._id}`);
 });
 
-app.get('/companies/:id', async (req, res) => {
+app.get('/biz/:id', async (req, res) => {
   const { id } = req.params;
 
-  const company = await Company.findById(id);
+  const business = await Business.findById(id);
 
-  res.render('companies/show', { company });
+  res.render('business/show', { business: business });
 });
 
-app.get('/companies/:id/edit', async (req, res) => {
+app.get('/biz-edit/:id', async (req, res) => {
   const { id } = req.params;
 
-  const company = await Company.findById(id);
+  const business = await Business.findById(id);
 
-  res.render('companies/edit', { company });
+  res.render('business/edit', { business: business });
 });
 
-app.patch('/companies/:id', async (req, res) => {
+app.patch('/biz/:id', async (req, res) => {
   const { id } = req.params;
 
-  const editedCompany = req.body.company;
-  editedCompany.updatedAt = new Date();
+  const editedBusiness = req.body.business;
+  editedBusiness.updatedAt = new Date();
 
-  const updatedCompany = await Company.findByIdAndUpdate(id, editedCompany, {
+  const updatedBusiness = await Business.findByIdAndUpdate(id, editedBusiness, {
     new: true,
   });
 
-  res.redirect(`/companies/${updatedCompany._id}`);
+  res.redirect(`/biz/${updatedBusiness._id}`);
 });
 
-app.delete('/companies/:id', async (req, res) => {
+app.delete('/biz/:id', async (req, res) => {
   const { id } = req.params;
 
-  await Company.findByIdAndDelete(id);
+  await Business.findByIdAndDelete(id);
 
-  res.redirect('/companies');
+  res.redirect('/biz');
 });
 
 app.use((req, res) => {

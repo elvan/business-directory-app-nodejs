@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // With faker.js we can generate fake data for our models.
-const CompanySchema = new Schema({
+const BusinessSchema = new Schema({
   name: String, // company.companyName
   description: String, // company.catchPhrase
   category: String, // commerce.department
@@ -18,4 +18,4 @@ const CompanySchema = new Schema({
   updatedAt: Date,
 });
 
-module.exports = mongoose.model('Company', CompanySchema);
+module.exports = mongoose.model('Business', BusinessSchema);

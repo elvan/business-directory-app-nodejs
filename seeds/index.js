@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const faker = require('faker');
 
 const images = require('./images');
-const Company = require('../models/company');
+const Business = require('../models/business');
 
 const db = mongoose.connection;
 
-const mongodbUri = process.env.MONGODB_SERVER + 'business-directory-app-nodejs';
+const mongodbUri = `${process.env.MONGODB_SERVER}/business-directory-app-nodejs`;
 
 console.log('Seeding data...');
 console.log(mongodbUri);
@@ -23,10 +23,10 @@ db.once('open', () => {
 });
 
 const seedData = async () => {
-  await Company.deleteMany({});
+  await Business.deleteMany({});
 
   for (let i = 0; i < 20; i++) {
-    const company = new Company({
+    const business = new Business({
       name: faker.company.companyName(),
       description: faker.company.catchPhrase(),
       category: faker.commerce.department(),
@@ -41,7 +41,7 @@ const seedData = async () => {
       updatedAt: new Date(),
     });
 
-    await company.save();
+    await business.save();
   }
 };
 

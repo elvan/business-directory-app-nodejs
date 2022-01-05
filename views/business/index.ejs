@@ -1,33 +1,33 @@
 <% layout('layouts/boilerplate.ejs') %>
-<h1>List of Companies</h1>
+<h1>List of Businesses</h1>
 <div>
-  <a href="/companies/new">Add New Company</a>
+  <a href="/biz-add">Add New Business</a>
 </div>
 <!-- prettier-ignore -->
 <div>
-  <% for( let company of companies ) { %>
+  <% for( let business of businesses ) { %>
     <div class="card mb-3">
       <div class="row">
         <div class="col-md-5">
           <img
-            src="<%- company.image %>"
-            alt="<%- company.name %> image"
+            src="<%- business.image %>"
+            alt="<%- business.name %> image"
             class="img-fluid" />
         </div>
         <div class="col-md-7">
           <div class="card-body">
-            <h5 class="card-title"><%- company.name %></h5>
-            <p class="card-text"><%- company.description %></p>
+            <h5 class="card-title"><%- business.name %></h5>
+            <p class="card-text"><%- business.description %></p>
             <p class="card-text">
               <small class="text-muted">
-                <%- company.address %>, <%- company.city %>
+                <%- business.address %>, <%- business.city %>
               </small>
             </p>
             <div>
               <a
-                href="/companies/<%- company.id %>"
+                href="/biz/<%- business.id %>"
                 class="btn btn-primary">
-                View <%- company.name %>
+                View <%- business.name %>
               </a>
             </div>
           </div>
