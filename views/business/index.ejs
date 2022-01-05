@@ -1,38 +1,40 @@
 <% layout('layouts/boilerplate.ejs') %>
-<h1>List of Businesses</h1>
 <div class="mb-3">
+  <h1>List of Businesses</h1>
   <a class="btn btn-success" href="/biz-add">Add New Business</a>
 </div>
 <!-- prettier-ignore -->
-<div>
-  <% for( let business of businesses ) { %>
-    <div class="card mb-3">
-      <div class="row">
-        <div class="col-md-5">
-          <img
-            src="<%- business.image %>"
-            alt="<%- business.name %> image"
-            class="img-fluid" />
-        </div>
-        <div class="col-md-7">
-          <div class="card-body">
-            <h5 class="card-title"><%- business.name %></h5>
-            <p class="card-text"><%- business.description %></p>
-            <p class="card-text">
-              <small class="text-muted">
-                <%- business.address %>, <%- business.city %>
-              </small>
-            </p>
-            <div>
-              <a
-                href="/biz/<%- business.id %>"
-                class="btn btn-primary stretched-link">
-                View <%- business.name %>
-              </a>
+<div class="container">
+  <div class="row">
+    <% for( let business of businesses ) { %>
+      <div class="card mb-3 px-0">
+        <div class="row">
+          <div class="col-sm-12 col-lg-6">
+            <img
+              src="<%- business.image %>"
+              alt="<%- business.name %> image"
+              class="img-fluid" />
+          </div>
+          <div class="col-sm-12 col-lg-6">
+            <div class="card-body">
+              <h5 class="card-title"><%- business.name %></h5>
+              <p class="card-text"><%- business.description %></p>
+              <p class="card-text">
+                <small class="text-muted">
+                  <%- business.address %>, <%- business.city %>
+                </small>
+              </p>
+              <div>
+                <a
+                  href="/biz/<%- business.id %>"
+                  class="btn btn-primary stretched-link">
+                  View <%- business.name %>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  <% } %>
+    <% } %>
+  </div>
 </div>

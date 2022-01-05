@@ -28,7 +28,7 @@ const seedData = async () => {
   for (let i = 0; i < 20; i++) {
     const business = new Business({
       name: faker.company.companyName(),
-      description: faker.company.catchPhrase(),
+      description: faker.lorem.paragraph(),
       category: faker.commerce.department(),
       address: faker.address.streetAddress(),
       city: faker.address.city(),
