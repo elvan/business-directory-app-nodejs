@@ -1,12 +1,12 @@
 {
   "name": "business-directory-app-nodejs",
-  "version": "1.0.0",
+  "version": "0.1.4",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
     "@types/method-override": "^0.0.32",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^16.11.18",
+    "@types/node": "^16.11.19",
     "nodemon": "^2.0.15"
   },
   "engines": {
