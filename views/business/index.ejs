@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate.ejs') %>
 <h1>List of Businesses</h1>
-<div>
-  <a href="/biz-add">Add New Business</a>
+<div class="mb-3">
+  <a class="btn btn-success" href="/biz-add">Add New Business</a>
 </div>
 <!-- prettier-ignore -->
 <div>
@@ -26,7 +26,7 @@
             <div>
               <a
                 href="/biz/<%- business.id %>"
-                class="btn btn-primary">
+                class="btn btn-primary stretched-link">
                 View <%- business.name %>
               </a>
             </div>
