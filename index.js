@@ -12,6 +12,7 @@ const ExpressError = require('./errors/ExpressError');
 const images = require('./seeds/images');
 const Business = require('./models/business');
 
+const NODE_ENV = process.env.NODE_ENV || 'development';
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -165,9 +166,18 @@ app.all('*', (req, res, next) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  const { message = 'Something went wrong', statusCode = 500 } = err;
+  if (!err.message) {
+    err.message = 'Something went wrong';
+  }
 
-  res.status(statusCode).send(message);
+  if (!err.statusCode) {
+    err.statusCode = 500;
+  }
+
+  res.status(err.statusCode).render('error', {
+    NODE_ENV: NODE_ENV,
+    error: err,
+  });
 });
 
 // Start server

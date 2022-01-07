@@ -1,0 +1,15 @@
+<% layout('layout/boilerplate.ejs') %>
+<div class="alert alert-danger" role="alert">
+  <h4 class="alert-heading">Error!</h4>
+  <p>There was an error processing your request.</p>
+  <hr />
+  <p class="mb-0"><%= error.message %></p>
+</div>
+
+<% if (NODE_ENV !== 'production') { %>
+<div>
+  <h5>Node Env: <%- NODE_ENV %></h5>
+  <h6>Stack Trace:</h6>
+  <pre><%- error.stack %></pre>
+</div>
+<% } %>
