@@ -21,6 +21,7 @@ mongoose.connect(mongodbUri, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -116,7 +117,7 @@ app.delete('/biz/:id', async (req, res) => {
 });
 
 app.use((req, res) => {
-  res.status(404).render('errors/404');
+  res.status(404).render('error/404');
 });
 
 app.listen(PORT, () => {
