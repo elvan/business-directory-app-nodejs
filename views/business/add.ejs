@@ -5,7 +5,7 @@
     <p class="text-center text-muted">
       (this form is pre-populated with fake data)
     </p>
-    <form action="/biz" method="post">
+    <form action="/biz" method="post" class="needs-validation" novalidate>
       <%- include('_form') %>
       <div>
         <button type="submit" class="btn btn-success">Save Business</button>
@@ -14,3 +14,28 @@
     </form>
   </div>
 </div>
+
+<script>
+  (function () {
+    'use strict';
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation');
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(function (form) {
+      form.addEventListener(
+        'submit',
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        },
+        false
+      );
+    });
+  })();
+</script>
