@@ -120,6 +120,11 @@ app.use((req, res) => {
   res.status(404).render('error/404');
 });
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render('error/500');
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
