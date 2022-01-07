@@ -7,9 +7,10 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 
+const catchAsync = require('./helpers/catchAsync');
+const ExpressError = require('./errors/ExpressError');
 const images = require('./seeds/images');
 const Business = require('./models/business');
-const catchAsync = require('./helpers/catchAsync');
 
 const PORT = process.env.PORT || 3000;
 
@@ -39,10 +40,12 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Homepage
 app.get('/', (req, res) => {
   res.render('index');
 });
 
+// Businesses index page
 app.get(
   '/biz',
   catchAsync(async (req, res) => {
@@ -52,6 +55,7 @@ app.get(
   })
 );
 
+// Businesses add page
 app.get('/biz-add', (req, res) => {
   const randomImage = images[Math.floor(Math.random() * images.length)];
 
@@ -72,10 +76,16 @@ app.get('/biz-add', (req, res) => {
   res.render('business/add', { business: business });
 });
 
+// Businesses create data
 app.post(
   '/biz',
   catchAsync(async (req, res) => {
     const postedBusiness = req.body.business;
+
+    if (!postedBusiness) {
+      throw new ExpressError('No business data was provided', 400);
+    }
+
     postedBusiness.createdAt = new Date();
     postedBusiness.updatedAt = new Date();
 
@@ -86,6 +96,7 @@ app.post(
   })
 );
 
+// Businesses show page
 app.get(
   '/biz/:id',
   catchAsync(async (req, res) => {
@@ -97,6 +108,7 @@ app.get(
   })
 );
 
+// Businesses edit page
 app.get(
   '/biz-edit/:id',
   catchAsync(async (req, res) => {
@@ -108,12 +120,18 @@ app.get(
   })
 );
 
+// Businesses update data
 app.patch(
   '/biz/:id',
   catchAsync(async (req, res) => {
     const { id } = req.params;
 
     const editedBusiness = req.body.business;
+
+    if (!editedBusiness) {
+      throw new ExpressError('No business data was provided', 400);
+    }
+
     editedBusiness.updatedAt = new Date();
 
     const updatedBusiness = await Business.findByIdAndUpdate(
@@ -128,6 +146,7 @@ app.patch(
   })
 );
 
+// Businesses delete data
 app.delete(
   '/biz/:id',
   catchAsync(async (req, res) => {
@@ -139,15 +158,19 @@ app.delete(
   })
 );
 
-app.use((req, res) => {
-  res.status(404).render('error/404');
+// 404 page
+app.all('*', (req, res, next) => {
+  next(new ExpressError('Page Not Found', 404));
 });
 
+// Error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).render('error/500');
+  const { message = 'Something went wrong', statusCode = 500 } = err;
+
+  res.status(statusCode).send(message);
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
