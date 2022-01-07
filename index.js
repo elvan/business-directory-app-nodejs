@@ -7,10 +7,11 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 
-const PORT = process.env.PORT || 3000;
-
 const images = require('./seeds/images');
 const Business = require('./models/business');
+const catchAsync = require('./helpers/catchAsync');
+
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 const db = mongoose.connection;
@@ -42,11 +43,14 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/biz', async (req, res) => {
-  const businesses = await Business.find().limit(10).exec();
+app.get(
+  '/biz',
+  catchAsync(async (req, res) => {
+    const businesses = await Business.find().limit(10).exec();
 
-  res.render('business/index', { businesses: businesses });
-});
+    res.render('business/index', { businesses: businesses });
+  })
+);
 
 app.get('/biz-add', (req, res) => {
   const randomImage = images[Math.floor(Math.random() * images.length)];
@@ -68,53 +72,72 @@ app.get('/biz-add', (req, res) => {
   res.render('business/add', { business: business });
 });
 
-app.post('/biz', async (req, res) => {
-  const postedBusiness = req.body.business;
-  postedBusiness.createdAt = new Date();
-  postedBusiness.updatedAt = new Date();
+app.post(
+  '/biz',
+  catchAsync(async (req, res) => {
+    const postedBusiness = req.body.business;
+    postedBusiness.createdAt = new Date();
+    postedBusiness.updatedAt = new Date();
 
-  const newBusiness = new Business(postedBusiness);
-  await newBusiness.save();
+    const newBusiness = new Business(postedBusiness);
+    await newBusiness.save();
 
-  res.redirect(`/biz/${newBusiness._id}`);
-});
+    res.redirect(`/biz/${newBusiness._id}`);
+  })
+);
 
-app.get('/biz/:id', async (req, res) => {
-  const { id } = req.params;
+app.get(
+  '/biz/:id',
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
 
-  const business = await Business.findById(id);
+    const business = await Business.findById(id);
 
-  res.render('business/show', { business: business });
-});
+    res.render('business/show', { business: business });
+  })
+);
 
-app.get('/biz-edit/:id', async (req, res) => {
-  const { id } = req.params;
+app.get(
+  '/biz-edit/:id',
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
 
-  const business = await Business.findById(id);
+    const business = await Business.findById(id);
 
-  res.render('business/edit', { business: business });
-});
+    res.render('business/edit', { business: business });
+  })
+);
 
-app.patch('/biz/:id', async (req, res) => {
-  const { id } = req.params;
+app.patch(
+  '/biz/:id',
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
 
-  const editedBusiness = req.body.business;
-  editedBusiness.updatedAt = new Date();
+    const editedBusiness = req.body.business;
+    editedBusiness.updatedAt = new Date();
 
-  const updatedBusiness = await Business.findByIdAndUpdate(id, editedBusiness, {
-    new: true,
-  });
+    const updatedBusiness = await Business.findByIdAndUpdate(
+      id,
+      editedBusiness,
+      {
+        new: true,
+      }
+    );
 
-  res.redirect(`/biz/${updatedBusiness._id}`);
-});
+    res.redirect(`/biz/${updatedBusiness._id}`);
+  })
+);
 
-app.delete('/biz/:id', async (req, res) => {
-  const { id } = req.params;
+app.delete(
+  '/biz/:id',
+  catchAsync(async (req, res) => {
+    const { id } = req.params;
 
-  await Business.findByIdAndDelete(id);
+    await Business.findByIdAndDelete(id);
 
-  res.redirect('/biz');
-});
+    res.redirect('/biz');
+  })
+);
 
 app.use((req, res) => {
   res.status(404).render('error/404');
