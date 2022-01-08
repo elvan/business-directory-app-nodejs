@@ -6,12 +6,12 @@ const faker = require('faker');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
-const Joi = require('joi');
 
 const catchAsync = require('./helpers/catchAsync');
 const ExpressError = require('./errors/ExpressError');
 const images = require('./seeds/images');
 const Business = require('./models/business');
+const validateBusiness = require('./middleware/validateBusiness');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const PORT = process.env.PORT || 3000;
@@ -81,30 +81,8 @@ app.get('/biz-add', (req, res) => {
 // Businesses create data
 app.post(
   '/biz',
+  validateBusiness,
   catchAsync(async (req, res) => {
-    const businessSchema = Joi.object({
-      business: Joi.object({
-        name: Joi.string().required(),
-        description: Joi.string().required(),
-        category: Joi.string().required(),
-        address: Joi.string().required(),
-        city: Joi.string().required(),
-        state: Joi.string().required(),
-        zip: Joi.string().required(),
-        phone: Joi.string().required(),
-        website: Joi.string().required().uri(),
-        image: Joi.string().required().uri(),
-      }).required(),
-    });
-
-    const { error } = businessSchema.validate(req.body);
-
-    if (error) {
-      const message = error.details.map((detail) => detail.message).join(', ');
-
-      throw new ExpressError(message, 400);
-    }
-
     const postedBusiness = req.body.business;
 
     if (!postedBusiness) {
@@ -148,6 +126,7 @@ app.get(
 // Businesses update data
 app.patch(
   '/biz/:id',
+  validateBusiness,
   catchAsync(async (req, res) => {
     const { id } = req.params;
 
