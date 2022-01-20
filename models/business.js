@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const Review = require('./review');
+
 const Schema = mongoose.Schema;
 
 const BusinessSchema = new Schema(
@@ -19,6 +21,12 @@ const BusinessSchema = new Schema(
     timestamps: true,
   }
 );
+
+BusinessSchema.post('findOneAndDelete', async function (doc) {
+  if (doc) {
+    await Review.deleteMany({ business: doc._id });
+  }
+});
 
 const Business = mongoose.model('Business', BusinessSchema);
 
