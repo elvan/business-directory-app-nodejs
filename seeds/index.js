@@ -1,17 +1,18 @@
 const mongoose = require('mongoose');
-const faker = require('faker');
+const faker = require('@faker-js/faker');
 
 const images = require('./images');
 const Business = require('../models/business');
 
+const MONGODB_URL =
+  process.env.MONGODB_URL ||
+  'mongodb://localhost:27017/business-directory-app-nodejs';
 const db = mongoose.connection;
 
-const mongodbUri = `${process.env.MONGODB_SERVER}/business-directory-app-nodejs`;
-
 console.log('Seeding data...');
-console.log(mongodbUri);
+console.log(MONGODB_URL);
 
-mongoose.connect(mongodbUri, {
+mongoose.connect(MONGODB_URL, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
