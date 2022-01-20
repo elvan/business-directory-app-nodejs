@@ -26,7 +26,7 @@
         </li>
       </ul>
       <div class="card-body">
-        <a href="/biz-edit/<%- business._id %>" class="btn btn-success">
+        <a href="/biz-edit/<%- business._id %>" class="btn btn-primary">
           Edit Business
         </a>
         <form
@@ -45,5 +45,32 @@
     <div>
       <a href="/biz">Back to Businesses</a>
     </div>
+    <hr />
+    <h2>Leave a Review</h2>
+    <form action="/biz/<%- business._id %>/reviews" class="mb-3">
+      <div class="mb-3">
+        <label for="review-rating" class="form-label">Rating</label>
+        <input
+          class="form-range"
+          type="range"
+          name="review[rating]"
+          id="review-rating"
+          min="1"
+          max="5"
+          value="5"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="review-comment" class="form-label">Comment</label>
+        <textarea
+          name="review[comment]"
+          id="review-comment"
+          cols="50"
+          rows="5"
+          class="form-control"
+        ></textarea>
+      </div>
+      <button class="btn btn-success">Add Review</button>
+    </form>
   </div>
 </div>
