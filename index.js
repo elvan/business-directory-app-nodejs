@@ -11,6 +11,7 @@ const morgan = require('morgan');
 const ExpressError = require('./errors/ExpressError');
 const catchAsync = require('./helpers/catchAsync');
 const validateBusiness = require('./middleware/validateBusiness');
+const validateReview = require('./middleware/validateReview');
 const Business = require('./models/business');
 const Review = require('./models/review');
 const images = require('./seeds/images');
@@ -170,6 +171,7 @@ app.delete(
 // Add a review
 app.post(
   '/biz/:id/reviews',
+  validateReview,
   catchAsync(async (req, res) => {
     const id = req.params.id;
 
