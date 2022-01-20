@@ -111,9 +111,13 @@ app.get(
   catchAsync(async (req, res) => {
     const id = req.params.id;
 
-    const business = await Business.findById(id).populate('reviews');
+    const business = await Business.findById(id);
+    const reviews = await Review.find({ business: id }).exec();
 
-    res.render('business/show', { business: business });
+    res.render('business/show', {
+      business: business,
+      reviews: reviews,
+    });
   })
 );
 
@@ -174,14 +178,14 @@ app.post(
   validateReview,
   catchAsync(async (req, res) => {
     const id = req.params.id;
+    const reviewData = {
+      ...req.body.review,
+      business: mongoose.Types.ObjectId(id),
+    };
 
-    const business = await Business.findById(id);
-
-    const review = new Review(req.body.review);
-    business.reviews.push(review);
+    const review = new Review(reviewData);
 
     await review.save();
-    await business.save();
 
     res.redirect(`/biz/${id}`);
   })

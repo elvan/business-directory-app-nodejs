@@ -14,12 +14,6 @@ const BusinessSchema = new Schema(
     phone: String, // phone.phoneNumber
     website: String, // internet.url
     image: String, // from Unsplash
-    reviews: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Review',
-      },
-    ],
   },
   {
     timestamps: true,

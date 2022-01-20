@@ -6,6 +6,10 @@ const reviewSchema = new Schema(
   {
     comment: String,
     rating: Number,
+    business: {
+      type: Schema.Types.ObjectId,
+      ref: 'Business',
+    },
   },
   {
     timestamps: true,
