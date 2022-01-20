@@ -1,6 +1,6 @@
 {
   "name": "business-directory-app-nodejs",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -35,11 +35,11 @@
     "@types/method-override": "^0.0.32",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^16.11.19",
+    "@types/node": "^16.11.21",
     "nodemon": "^2.0.15"
   },
   "engines": {
-    "node": "16.x",
+    "node": "16.*",
     "npm": "8.*"
   }
 }
