@@ -12,6 +12,7 @@ const ExpressError = require('./errors/ExpressError');
 const catchAsync = require('./helpers/catchAsync');
 const validateBusiness = require('./middleware/validateBusiness');
 const Business = require('./models/business');
+const Review = require('./models/review');
 const images = require('./seeds/images');
 
 dotenv.config();
@@ -107,7 +108,7 @@ app.post(
 app.get(
   '/biz/:id',
   catchAsync(async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
 
     const business = await Business.findById(id);
 
@@ -119,7 +120,7 @@ app.get(
 app.get(
   '/biz-edit/:id',
   catchAsync(async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
 
     const business = await Business.findById(id);
 
@@ -132,7 +133,7 @@ app.patch(
   '/biz/:id',
   validateBusiness,
   catchAsync(async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
 
     const editedBusiness = req.body.business;
 
@@ -158,11 +159,29 @@ app.patch(
 app.delete(
   '/biz/:id',
   catchAsync(async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
 
     await Business.findByIdAndDelete(id);
 
     res.redirect('/biz');
+  })
+);
+
+// Add a review
+app.post(
+  '/biz/:id/reviews',
+  catchAsync(async (req, res) => {
+    const id = req.params.id;
+
+    const business = await Business.findById(id);
+
+    const review = new Review(req.body.review);
+    business.reviews.push(review);
+
+    await review.save();
+    await business.save();
+
+    res.redirect(`/biz/${id}`);
   })
 );
 
