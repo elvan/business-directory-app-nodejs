@@ -26,9 +26,10 @@ db.once('open', () => {
 
 const seedData = async () => {
   await Business.deleteMany({});
+  await Review.deleteMany({});
 
   // Create fake businesses
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 20; i++) {
     const business = new Business({
       name: faker.company.companyName(),
       description: faker.lorem.paragraph(),
