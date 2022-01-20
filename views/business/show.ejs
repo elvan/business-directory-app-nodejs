@@ -1,6 +1,18 @@
 <% layout('layout/boilerplate.ejs') %>
+
+<div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item"><a href="/biz">Business</a></li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%- business.name %>
+      </li>
+    </ol>
+  </nav>
+</div>
 <div class="row">
-  <div class="col-md-10 offset-md-1 col-xl-8 offset-xl-2">
+  <div class="col-6">
     <div class="card mb-3">
       <img
         src="<%- business.image %>"
@@ -42,10 +54,9 @@
         <p>Updated at <%= business.updatedAt %></p>
       </div>
     </div>
-    <div>
-      <a href="/biz">Back to Businesses</a>
-    </div>
-    <hr />
+  </div>
+  <!-- prettier-ignore -->
+  <div class="col-6">
     <h2>Leave a Review</h2>
     <form
       action="/biz/<%- business._id %>/reviews"
@@ -79,17 +90,16 @@
       </div>
       <button class="btn btn-success">Add Review</button>
     </form>
-    <!-- prettier-ignore -->
-    <div class="mb-3">
-      <% if (business.reviews?.length > 0) { %>
-        <h2>Reviews</h2>
-        <% for (let review of business.reviews) { %>
-          <div class="mb-3">
-            <p>Rating: <%= review.rating %></p>
-            <p><%= review.comment %></p>
+    <% if (business.reviews?.length > 0) { %>
+      <h2>Reviews</h2>
+      <% for (let review of business.reviews) { %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title"><p>Rating: <%= review.rating %></p></h5>
+            <p class="card-text"><%= review.comment %></p>
           </div>
-        <% } %>
+        </div>
       <% } %>
-    </div>
+    <% } %>
   </div>
 </div>
