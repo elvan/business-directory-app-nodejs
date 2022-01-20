@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
 const faker = require('@faker-js/faker');
+const mongoose = require('mongoose');
 
 const images = require('./images');
 const Business = require('../models/business');
+const Review = require('../models/review');
 
 const MONGODB_URL =
   process.env.MONGODB_URL ||
@@ -26,7 +27,8 @@ db.once('open', () => {
 const seedData = async () => {
   await Business.deleteMany({});
 
-  for (let i = 0; i < 20; i++) {
+  // Create fake businesses
+  for (let i = 0; i < 100; i++) {
     const business = new Business({
       name: faker.company.companyName(),
       description: faker.lorem.paragraph(),
@@ -38,11 +40,44 @@ const seedData = async () => {
       phone: faker.phone.phoneNumber(),
       website: faker.internet.url(),
       image: images[i],
-      createdAt: new Date(),
-      updatedAt: new Date(),
     });
 
     await business.save();
+
+    // Create fake reviews
+    for (let j = 0; j < faker.datatype.number({ min: 1, max: 10 }); j++) {
+      const randomNumber = faker.datatype.number({ min: 0, max: 100 });
+      let rating = 0;
+
+      // 50% chance of being a 5 star review
+      if (randomNumber >= 50) {
+        rating = 5;
+      }
+      // 20% chance
+      else if (randomNumber >= 30 && randomNumber < 50) {
+        rating = 4;
+      }
+      // 15% chance
+      else if (randomNumber >= 15 && randomNumber < 30) {
+        rating = 3;
+      }
+      // 10% chance
+      else if (randomNumber >= 5 && randomNumber < 15) {
+        rating = 2;
+      }
+      // 5% chance
+      else {
+        rating = 1;
+      }
+
+      const review = new Review({
+        rating: rating,
+        comment: faker.lorem.paragraph(),
+        business: business._id,
+      });
+
+      await review.save();
+    }
   }
 };
 
