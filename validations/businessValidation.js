@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const businessSchema = Joi.object({
+const businessValidation = Joi.object({
   business: Joi.object({
     name: Joi.string().required(),
     description: Joi.string().required(),
@@ -15,4 +15,4 @@ const businessSchema = Joi.object({
   }).required(),
 });
 
-module.exports = businessSchema;
+module.exports = businessValidation;

@@ -1,9 +1,9 @@
 const ExpressError = require('../errors/ExpressError');
-const businessSchema = require('../schemas/businessSchema');
+const businessValidation = require('../validations/businessValidation');
 
 // Validation middleware
 const validateBusiness = (req, res, next) => {
-  const { error } = businessSchema.validate(req.body);
+  const { error } = businessValidation.validate(req.body);
 
   if (error) {
     const message = error.details.map((detail) => detail.message).join(', ');
