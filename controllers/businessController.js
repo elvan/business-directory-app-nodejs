@@ -39,9 +39,6 @@ exports.createBusiness = catchAsync(async (req, res) => {
     throw new ExpressError('No business data was provided', 400);
   }
 
-  postedBusiness.createdAt = new Date();
-  postedBusiness.updatedAt = new Date();
-
   const newBusiness = new Business(postedBusiness);
   await newBusiness.save();
 
@@ -76,8 +73,6 @@ exports.updateBusiness = catchAsync(async (req, res) => {
   if (!editedBusiness) {
     throw new ExpressError('No business data was provided', 400);
   }
-
-  editedBusiness.updatedAt = new Date();
 
   const updatedBusiness = await Business.findByIdAndUpdate(id, editedBusiness, {
     new: true,
