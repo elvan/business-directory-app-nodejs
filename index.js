@@ -111,7 +111,7 @@ app.get(
   catchAsync(async (req, res) => {
     const id = req.params.id;
 
-    const business = await Business.findById(id);
+    const business = await Business.findById(id).populate('reviews');
 
     res.render('business/show', { business: business });
   })
