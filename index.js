@@ -191,6 +191,19 @@ app.post(
   })
 );
 
+// Delete a review
+app.delete(
+  '/biz/:id/reviews/:reviewId',
+  catchAsync(async (req, res) => {
+    const id = req.params.id;
+    const reviewId = req.params.reviewId;
+
+    await Review.findByIdAndDelete(reviewId);
+
+    res.redirect(`/biz/${id}`);
+  })
+);
+
 // 404 page
 app.all('*', (req, res, next) => {
   next(new ExpressError('Page Not Found', 404));

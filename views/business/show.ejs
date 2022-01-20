@@ -97,9 +97,16 @@
           <div class="card-body">
             <h5 class="card-title"><p>Rating: <%= review.rating %></p></h5>
             <p class="card-text"><%= review.comment %></p>
+            <form
+              action="/biz/<%- business._id %>/reviews/<%- review._id %>?_method=DELETE"
+              method="post">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
           </div>
         </div>
       <% } %>
+    <% } else { %>
+      <p>No reviews yet.</p>
     <% } %>
   </div>
 </div>
