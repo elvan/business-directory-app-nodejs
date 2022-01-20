@@ -1,27 +1,31 @@
 const path = require('path');
 
-const express = require('express');
-const mongoose = require('mongoose');
-const faker = require('faker');
-const methodOverride = require('method-override');
-const morgan = require('morgan');
+const faker = require('@faker-js/faker');
+const dotenv = require('dotenv');
 const ejsMate = require('ejs-mate');
+const express = require('express');
+const methodOverride = require('method-override');
+const mongoose = require('mongoose');
+const morgan = require('morgan');
 
-const catchAsync = require('./helpers/catchAsync');
 const ExpressError = require('./errors/ExpressError');
-const images = require('./seeds/images');
-const Business = require('./models/business');
+const catchAsync = require('./helpers/catchAsync');
 const validateBusiness = require('./middleware/validateBusiness');
+const Business = require('./models/business');
+const images = require('./seeds/images');
+
+dotenv.config();
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
+const MONGODB_URL =
+  process.env.MONGODB_URL ||
+  'mongodb://localhost:27017/business-directory-app-nodejs';
 
 const app = express();
 const db = mongoose.connection;
 
-const mongodbUri = `${process.env.MONGODB_SERVER}/business-directory-app-nodejs`;
-
-mongoose.connect(mongodbUri, {
+mongoose.connect(MONGODB_URL, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
