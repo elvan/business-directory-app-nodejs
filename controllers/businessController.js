@@ -15,7 +15,7 @@ exports.fetchAllBusinesses = catchAsync(async (req, res) => {
   res.render('business/index', { businesses: businesses });
 });
 
-exports.addBusinessForm = (req, res) => {
+exports.addBusiness = (req, res) => {
   const randomImage = images[Math.floor(Math.random() * images.length)];
 
   // pre-populate the form with fake data
@@ -45,6 +45,8 @@ exports.createBusiness = catchAsync(async (req, res) => {
   const newBusiness = new Business(postedBusiness);
   await newBusiness.save();
 
+  req.flash('success', 'Business successfully added!');
+
   res.redirect(`/biz/${newBusiness._id}`);
 });
 
@@ -63,7 +65,7 @@ exports.fetchBusiness = catchAsync(async (req, res) => {
   });
 });
 
-exports.editBusinessForm = catchAsync(async (req, res) => {
+exports.editBusiness = catchAsync(async (req, res) => {
   const id = req.params.id;
 
   const business = await Business.findById(id);
@@ -84,6 +86,8 @@ exports.updateBusiness = catchAsync(async (req, res) => {
     new: true,
   });
 
+  req.flash('success', 'Business successfully updated!');
+
   res.redirect(`/biz/${updatedBusiness._id}`);
 });
 
@@ -91,6 +95,8 @@ exports.deleteBusiness = catchAsync(async (req, res) => {
   const id = req.params.id;
 
   await Business.findByIdAndDelete(id);
+
+  req.flash('success', 'Business successfully deleted!');
 
   res.redirect('/biz');
 });

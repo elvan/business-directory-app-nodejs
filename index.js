@@ -1,5 +1,6 @@
 const path = require('path');
 
+const flash = require('connect-flash');
 const dotenv = require('dotenv');
 const ejsMate = require('ejs-mate');
 const express = require('express');
@@ -12,6 +13,7 @@ const ExpressError = require('./errors/ExpressError');
 const businessRouter = require('./routers/businessRouter');
 const reviewRouter = require('./routers/reviewRouter');
 
+// Load environment variables from .env file
 dotenv.config();
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -20,7 +22,10 @@ const MONGODB_URL =
   process.env.MONGODB_URL ||
   'mongodb://localhost:27017/business-directory-app-nodejs';
 
+// Create Express app
 const app = express();
+
+// Database
 const db = mongoose.connection;
 
 mongoose.connect(MONGODB_URL, {
@@ -35,8 +40,8 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
+// Session Configuration
 const ONE_MONTH = 1000 * 60 * 60 * 24 * 30;
-
 const sessionConfig = {
   secret: 'some secret string here to encrypt the session id cookie',
   resave: false,
@@ -49,20 +54,30 @@ const sessionConfig = {
   },
 };
 
+// Middleware
+app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('tiny'));
-app.use(methodOverride('_method'));
 app.use(session(sessionConfig));
+app.use(flash());
+app.use(methodOverride('_method'));
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Flash
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+
+  next();
+});
+
+// Routing
 app.get('/', (req, res) => {
   res.render('index');
 });
-
 app.use('/biz', businessRouter);
 app.use('/biz/:id/reviews', reviewRouter);
 

@@ -2,9 +2,9 @@ const express = require('express');
 const {
   fetchAllBusinesses,
   createBusiness,
-  addBusinessForm,
+  addBusiness,
   fetchBusiness,
-  editBusinessForm,
+  editBusiness,
   deleteBusiness,
   updateBusiness,
 } = require('../controllers/businessController');
@@ -14,13 +14,13 @@ const router = express.Router();
 
 router.get('/', fetchAllBusinesses);
 
-router.get('/add', addBusinessForm);
+router.get('/add', addBusiness);
 
 router.post('/', validateBusiness, createBusiness);
 
 router.get('/:id', fetchBusiness);
 
-router.get('/:id/edit', editBusinessForm);
+router.get('/:id/edit', editBusiness);
 
 router.patch('/:id', validateBusiness, updateBusiness);
 
