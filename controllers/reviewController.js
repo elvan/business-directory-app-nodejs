@@ -14,6 +14,8 @@ exports.addReview = catchAsync(async (req, res) => {
 
   await review.save();
 
+  req.flash('success', 'Review successfully added!');
+
   res.redirect(`/biz/${id}`);
 });
 
@@ -22,6 +24,8 @@ exports.deleteReview = catchAsync(async (req, res) => {
   const reviewId = req.params.reviewId;
 
   await Review.findByIdAndDelete(reviewId);
+
+  req.flash('error', 'Review successfully deleted!');
 
   res.redirect(`/biz/${id}`);
 });
