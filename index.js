@@ -3,6 +3,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const ejsMate = require('ejs-mate');
 const express = require('express');
+const session = require('express-session');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -34,10 +35,25 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
+const ONE_MONTH = 1000 * 60 * 60 * 24 * 30;
+
+const sessionConfig = {
+  secret: 'some secret string here to encrypt the session id cookie',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: new Date(Date.now() + ONE_MONTH),
+    maxAge: ONE_MONTH,
+    secure: false,
+    httpOnly: true,
+  },
+};
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 app.use(methodOverride('_method'));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(session(sessionConfig));
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
