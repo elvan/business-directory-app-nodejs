@@ -54,6 +54,11 @@ exports.fetchBusiness = catchAsync(async (req, res) => {
   const id = req.params.id;
 
   const business = await Business.findById(id);
+
+  if (!business) {
+    throw new ExpressError('Business not found', 404);
+  }
+
   const reviews = await Review.find({ business: id })
     .sort({ createdAt: 'desc' })
     .limit(10)
@@ -69,6 +74,10 @@ exports.editBusiness = catchAsync(async (req, res) => {
   const id = req.params.id;
 
   const business = await Business.findById(id);
+
+  if (!business) {
+    throw new ExpressError('Business not found', 404);
+  }
 
   res.render('business/edit', { business: business });
 });
@@ -96,7 +105,7 @@ exports.deleteBusiness = catchAsync(async (req, res) => {
 
   await Business.findByIdAndDelete(id);
 
-  req.flash('success', 'Business successfully deleted!');
+  req.flash('error', 'Business successfully deleted!');
 
   res.redirect('/biz');
 });
