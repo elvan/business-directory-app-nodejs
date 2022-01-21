@@ -7,7 +7,10 @@ const Review = require('../models/review');
 const images = require('../seeds/images');
 
 exports.fetchAllBusinesses = catchAsync(async (req, res) => {
-  const businesses = await Business.find().limit(10).exec();
+  const businesses = await Business.find()
+    .sort({ createdAt: 'desc' })
+    .limit(10)
+    .exec();
 
   res.render('business/index', { businesses: businesses });
 });
@@ -49,7 +52,10 @@ exports.fetchBusiness = catchAsync(async (req, res) => {
   const id = req.params.id;
 
   const business = await Business.findById(id);
-  const reviews = await Review.find({ business: id }).exec();
+  const reviews = await Review.find({ business: id })
+    .sort({ createdAt: 'desc' })
+    .limit(10)
+    .exec();
 
   res.render('business/show', {
     business: business,
