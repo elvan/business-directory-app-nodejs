@@ -6,7 +6,9 @@ const {
   handleRegister,
   renderLogin,
   handleLogin,
+  handleLogout,
 } = require('../controllers/userController');
+const { isLoggedIn } = require('../middleware/isLoggedIn');
 
 const router = express.Router();
 
@@ -26,5 +28,7 @@ router.post(
   }),
   handleLogin
 );
+
+router.get('/logout', isLoggedIn, handleLogout);
 
 module.exports = router;

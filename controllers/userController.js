@@ -30,3 +30,9 @@ exports.handleLogin = catchAsync(async (req, res) => {
   req.flash('success', `Welcome back!`);
   res.redirect('/biz');
 });
+
+exports.handleLogout = (req, res) => {
+  req.logout();
+  req.flash('success', 'You have logged out!');
+  res.redirect('/');
+};
