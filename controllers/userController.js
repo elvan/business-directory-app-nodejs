@@ -21,3 +21,12 @@ exports.handleRegister = catchAsync(async (req, res) => {
     res.render('users/register', { user: user, error: err.message });
   }
 });
+
+exports.renderLogin = catchAsync(async (req, res) => {
+  res.render('users/login');
+});
+
+exports.handleLogin = catchAsync(async (req, res) => {
+  req.flash('success', `Welcome back!`);
+  res.redirect('/biz');
+});
