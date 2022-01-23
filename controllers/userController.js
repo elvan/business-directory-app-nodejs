@@ -36,6 +36,14 @@ exports.renderLogin = catchAsync(async (req, res) => {
 
 exports.handleLogin = catchAsync(async (req, res) => {
   req.flash('success', `Welcome back!`);
+
+  if (req.session.returnTo !== '/') {
+    const returnTo = req.session.returnTo;
+    req.session.returnTo = '/';
+
+    return res.redirect(returnTo);
+  }
+
   res.redirect('/biz');
 });
 
