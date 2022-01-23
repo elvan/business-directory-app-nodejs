@@ -11,6 +11,19 @@
 </div>
 <% } %>
 
+<!-- warning flash -->
+<% if (warning && warning.length > 0) { %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <%= warning %>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<% } %>
+
 <!-- error flash -->
 <% if (error && error.length > 0) { %>
 <div class="alert alert-danger alert-dismissible fade show" role="alert">

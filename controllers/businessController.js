@@ -16,6 +16,12 @@ exports.fetchAllBusinesses = catchAsync(async (req, res) => {
 });
 
 exports.addBusiness = (req, res) => {
+  if (!req.isAuthenticated()) {
+    req.flash('error', 'You must be logged in to add a business');
+
+    return res.redirect('/login');
+  }
+
   const randomImage = images[Math.floor(Math.random() * images.length)];
 
   // pre-populate the form with fake data
@@ -36,6 +42,12 @@ exports.addBusiness = (req, res) => {
 };
 
 exports.createBusiness = catchAsync(async (req, res) => {
+  if (!req.isAuthenticated()) {
+    req.flash('error', 'You must be logged in to add a business');
+
+    return res.redirect('/login');
+  }
+
   const postedBusiness = req.body.business;
 
   if (!postedBusiness) {
@@ -105,7 +117,7 @@ exports.deleteBusiness = catchAsync(async (req, res) => {
 
   await Business.findByIdAndDelete(id);
 
-  req.flash('error', 'Business successfully deleted!');
+  req.flash('warning', 'Business successfully deleted!');
 
   res.redirect('/biz');
 });

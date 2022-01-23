@@ -25,7 +25,7 @@ exports.deleteReview = catchAsync(async (req, res) => {
 
   await Review.findByIdAndDelete(reviewId);
 
-  req.flash('error', 'Review successfully deleted!');
+  req.flash('warning', 'Review successfully deleted!');
 
   res.redirect(`/biz/${id}`);
 });
