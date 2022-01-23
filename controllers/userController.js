@@ -12,7 +12,15 @@ exports.handleRegister = catchAsync(async (req, res) => {
   const user = new User({ username, email });
 
   try {
-    await User.register(user, password);
+    const registeredUser = await User.register(user, password);
+
+    req.login(registeredUser, (err) => {
+      if (err) {
+        req.flash('error', err.message);
+
+        return res.redirect('/register');
+      }
+    });
 
     req.flash('success', `Welcome to the site, ${username}!`);
 
