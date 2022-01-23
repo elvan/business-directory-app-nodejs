@@ -14,6 +14,7 @@ const connectToDatabase = require('./database/connection');
 const ExpressError = require('./errors/ExpressError');
 const businessRouter = require('./routers/businessRouter');
 const reviewRouter = require('./routers/reviewRouter');
+const userRouter = require('./routers/userRouter');
 const User = require('./models/user');
 const catchAsync = require('./helpers/catchAsync');
 
@@ -92,6 +93,7 @@ app.get(
 app.get('/', (req, res) => {
   res.render('index');
 });
+app.use('/', userRouter);
 app.use('/biz', businessRouter);
 app.use('/biz/:id/reviews', reviewRouter);
 
