@@ -8,6 +8,16 @@ exports.renderRegister = catchAsync(async (req, res) => {
 });
 
 exports.handleRegister = catchAsync(async (req, res) => {
-  console.log(req.body);
-  res.redirect('/biz');
+  const { username, email, password } = req.body;
+  const user = new User({ username, email });
+
+  try {
+    await User.register(user, password);
+
+    req.flash('success', `Welcome to the site, ${username}!`);
+
+    res.redirect('/');
+  } catch (err) {
+    res.render('users/register', { user: user, error: err.message });
+  }
 });
