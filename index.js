@@ -67,8 +67,11 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Flash
 app.use((req, res, next) => {
+  // User
+  res.locals.currentUser = req.user;
+
+  // Flash
   res.locals.success = req.flash('success');
   res.locals.warning = req.flash('warning');
   res.locals.error = req.flash('error');
